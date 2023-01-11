@@ -1,0 +1,34 @@
+# RELEASE
+# Crea un release de todo el proyecto 
+# Genera 2 archivos comprimidos para descargar alguno de los 2(zip) o (tar.gz)
+# genera la version
+
+name: ic_java_05012023
+on: 
+ push:
+    branches: [ "master" ]
+    tags:
+      - "v*"
+ pull_request:  
+    branches: [ master]
+    tags:
+      - "v*"   
+jobs:
+    master_java:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+                 
+        - uses: actions/upload-artifact@v3
+          with:
+            name: my-artifact
+            path: target/MavenArtefacto-0.0.1-SNAPSHOT.jar
+        
+       
+        - uses: actions/create-release@v1
+          env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
+          with:
+            tag_name: v.0.0.${{ github.run_number }}
+            release_name: v.0.0.${{ github.run_number }}
+        
