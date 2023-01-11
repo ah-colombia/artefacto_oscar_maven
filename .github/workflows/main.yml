@@ -37,7 +37,7 @@ jobs:
           env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
-           upload_url: ${{ steps.create-new-release.outputs.upload_url }} 
+          # upload_url: ${{ steps.create-new-release.outputs.upload_url }} 
            asset_path:  target/MavenArtefacto-0.0.1-SNAPSHOT.jar
            asset_name: MavenArtefacto-0.0.1-SNAPSHOT-v${{ github.run_number }}.jar
            asset_content_type: aplication/jar
