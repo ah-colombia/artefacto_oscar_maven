@@ -23,8 +23,7 @@ jobs:
           with:
             name: my-artifact
             path: target/MavenArtefacto-0.0.1-SNAPSHOT.jar
-        
-       
+               
         - uses: actions/create-release@v1
           env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
@@ -32,3 +31,14 @@ jobs:
             tag_name: v.0.0.${{ github.run_number }}
             release_name: v.0.0.${{ github.run_number }}
         
+      
+        - name: Upload release asset
+          uses: actions/upload-release-asset@v1
+          env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+           upload_url: ${{ steps.create-new-release.outputs.upload_url }} 
+           asset_path:  target/MavenArtefacto-0.0.1-SNAPSHOT.jar
+           asset_name: MavenArtefacto-0.0.1-SNAPSHOT-v${{ github.run_number }}.jar
+           asset_content_type: aplication/jar
+
